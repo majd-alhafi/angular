@@ -1,29 +1,37 @@
-# Agnular
+# Application README.md
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+This README.md file provides information about the Angular application and its specifications, as well as details about the webhook integration with a Jenkins server. 🚀
 
-## Development server
+## AngularJS Application Specifications
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular CLI: 17.3.7
+- Node: 20.13.1
+- Package Manager: npm 10.7.0
 
-## Code scaffolding
+## Webhook Integration with Jenkins Server 🎯
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The Angular application is integrated with a Jenkins server using a webhook. This webhook is triggered on every push to the repository and executes the following steps: 🔄
 
-## Build
+```shell
+IMAGE_NAME=majdalhafi/angular
+CONTAINER_NAME=angular
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+docker build -t ${IMAGE_NAME}:${GIT_COMMIT} .
+docker push ${IMAGE_NAME}:${GIT_COMMIT}
+docker rm -f ${CONTAINER_NAME} >/dev/null 2>&1 || true
+docker run -d -p 4200:4200 --name ${CONTAINER_NAME} ${IMAGE_NAME}:${GIT_COMMIT}
+```
 
-## Running unit tests
+These steps involve building a Docker image, pushing it to a Docker registry, removing any existing container with the same name, and running a new container based on the newly built image. 🐳
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Please ensure that the necessary dependencies (Docker, Jenkins, etc.) are properly installed and configured for this integration to work correctly. 🔧
 
-## Running end-to-end tests
+## Additional Information ℹ️
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+For more details about AngularJS, please refer to the official Angular documentation and resources. 📚
 
-## Further help
+For more information about Jenkins and webhook integrations, consult the Jenkins documentation or seek assistance from your system administrator or DevOps team. 📖
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If you encounter any issues or have further questions, feel free to reach out to the project maintainers or the development team. 🙌
 
-
+Happy coding! ✨👩‍💻👨‍💻
